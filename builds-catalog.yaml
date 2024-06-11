@@ -1,0 +1,45 @@
+---
+apiVersion: operator.openshift.io/v1alpha1
+kind: ImageContentSourcePolicy
+metadata:
+  labels:
+    operators.openshift.org/catalog: "true"
+  name: openshift-builds-operator-index-0
+spec:
+  repositoryDigestMirrors:
+  - mirrors:
+    - quay.io/avik6028/openshift-builds-image-bundler
+    source: registry.redhat.io/openshift-builds/openshift-builds-image-bundler
+  - mirrors:
+    - quay.io/avik6028/openshift-builds-image-processing
+    source: registry.redhat.io/openshift-builds/openshift-builds-image-processing
+  - mirrors:
+    - quay.io/avik6028/openshift-builds-triggers
+    source: registry.redhat.io/openshift-builds/openshift-builds-triggers
+  - mirrors:
+    - quay.io/avik6028/openshift-builds-git-cloner
+    source: registry.redhat.io/openshift-builds/openshift-builds-git-cloner
+  - mirrors:
+    - quay.io/avik6028/openshift-builds-waiters
+    source: registry.redhat.io/openshift-builds/openshift-builds-waiters
+  - mirrors:
+    - quay.io/avik6028/openshift-builds-operator
+    source: registry.redhat.io/openshift-builds/openshift-builds-operator
+  - mirrors:
+    - quay.io/avik6028/rh-osbs-openshift-builds-operator-bundle
+    source: registry-proxy.engineering.redhat.com/rh-osbs/openshift-builds-operator-bundle
+  - mirrors:
+    - quay.io/avik6028/openshift-builds-webhook
+    source: registry.redhat.io/openshift-builds/openshift-builds-webhook
+  - mirrors:
+    - quay.io/avik6028/openshift-builds-controller
+    source: registry.redhat.io/openshift-builds/openshift-builds-controller
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: openshift-builds-operator-index
+  namespace: openshift-marketplace
+spec:
+  image: quay.io/avik6028/openshift-builds-operator-index:v0.12.0-pruned
+  sourceType: grpc
