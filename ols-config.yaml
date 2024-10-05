@@ -1,11 +1,12 @@
+# These are for the operator testing - cluster deployment
 apiVersion: v1
+data:
+  apitoken: XXX
 kind: Secret
 metadata:
-  name: credentials
+  name: openai-api-keys
   namespace: openshift-lightspeed
 type: Opaque
-stringData:
-  apitoken: hello
 ---
 apiVersion: ols.openshift.io/v1alpha1
 kind: OLSConfig
@@ -17,11 +18,13 @@ spec:
       - name: myOpenai
         type: openai
         credentialsSecretRef:
-          name: credentials
+          name: openai-api-keys
         url: "https://api.openai.com/v1"
         models:
           - name: gpt-3.5-turbo
+            parameters:
+              maxTokensForResponse: 20
   ols:
     defaultModel: gpt-3.5-turbo
-    default provider: myOpenai
+    defaultProvider: myOpenai
     logLevel: DEBUG
